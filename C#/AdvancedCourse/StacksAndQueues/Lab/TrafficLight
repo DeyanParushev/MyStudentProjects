@@ -1,0 +1,55 @@
+namespace TrafficLight
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int maxCarsToPass = int.Parse(Console.ReadLine());
+
+            string userCommand = Console.ReadLine();
+
+            Queue<string> carsQueue = new Queue<string>();
+
+            int carsPassed = 0;
+
+            while (userCommand != "end")
+            {
+
+                if (userCommand != "green")
+                {
+                    string car = userCommand;
+
+                    carsQueue.Enqueue(car);
+                }
+                else
+                {
+                    if (carsQueue.Count >= maxCarsToPass)
+                    {
+                        for (int i = 0; i < maxCarsToPass; i++)
+                        {
+                            Console.WriteLine($"{carsQueue.Dequeue()} passed!");
+                            carsPassed++;
+                        }
+                    }
+                    else
+                    {
+                        while (carsQueue.Count > 0)
+                        {
+                            Console.WriteLine($"{carsQueue.Dequeue()} passed!");
+                            carsPassed++;
+                        }
+                    }
+                }
+
+                userCommand = Console.ReadLine();
+
+            }
+
+            Console.WriteLine($"{carsPassed} cars passed the crossroads.");
+        }
+    }
+}
