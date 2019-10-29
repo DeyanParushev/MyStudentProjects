@@ -13,8 +13,8 @@ namespace BasicStackOperations
                 .Select(int.Parse)
                 .ToArray();
 
-            int numbersToPush = userInputLine[0];
-            int numbersToPop = userInputLine[1];
+            int numbersToEnqueue = userInputLine[0];
+            int numbersToDequeue = userInputLine[1];
             int searchedNumber = userInputLine[2];
 
             int[] inputNumbersToPush = Console.ReadLine()
@@ -29,9 +29,9 @@ namespace BasicStackOperations
                 queue.Enqueue(inputNumbersToPush[i]);
             }
 
-            if (numbersToPop <= queue.Count)
+            if (numbersToDequeue <= queue.Count)
             {
-                for (int i = 0; i < numbersToPop; i++)
+                for (int i = 0; i < numbersToDequeue; i++)
                 {
                     queue.Dequeue();
                 }
@@ -62,5 +62,3 @@ namespace BasicStackOperations
         }
     }
 }
-
-
