@@ -1,0 +1,90 @@
+namespace CupsAndBottles
+{
+    using System;
+    using System.Linq;
+    using System.Collections.Generic;
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] cupsVolumesInput = Console.ReadLine()
+                .Split(' ')
+                .Select(int.Parse)
+                .ToArray();
+
+            int[] bottlesVolumesInput = Console.ReadLine()
+                .Split(' ')
+                .Select(int.Parse)
+                .ToArray();
+
+            Queue<int> cupsQueue = new Queue<int>();
+
+            Stack<int> bottlesStack = new Stack<int>();
+
+            foreach (int cupVolume in cupsVolumesInput)
+            {
+                cupsQueue.Enqueue(cupVolume);
+            }
+
+            foreach (int bottle in bottlesVolumesInput)
+            {
+                bottlesStack.Push(bottle);
+            }
+
+            int wastedWater = 0;
+            bool allCupsAreFilled = false;
+
+            while (cupsQueue.Count > 0 && bottlesStack.Count > 0)
+            {
+                int cupVolume = cupsQueue.Peek();
+                int bottleVolume = bottlesStack.Peek();
+
+                if (bottleVolume >= cupVolume)
+                {
+                    wastedWater += (bottleVolume - cupVolume);
+
+                    bottlesStack.Pop();
+                    cupsQueue.Dequeue();
+                }
+                else
+                {
+                    cupVolume -= bottleVolume;
+
+                    cupsQueue.Dequeue();
+                    cupsQueue = new Queue<int>(cupsQueue.Reverse());
+
+                    cupsQueue.Enqueue(cupVolume);
+                    cupsQueue = new Queue<int>(cupsQueue.Reverse());
+
+                    bottlesStack.Pop();
+                }
+            }
+
+            if (cupsQueue.Count <= 0)
+            {
+                allCupsAreFilled = true;
+            }
+
+            if (allCupsAreFilled)
+            {
+                int[] bottlesLeft = bottlesStack
+                    .Reverse()
+                    .ToArray();
+
+                Console.WriteLine($"Bottles: {string.Join(" ", bottlesLeft)}");
+                Console.WriteLine($"Wasted litters of water: {wastedWater}");
+            }
+            else
+            {
+                int[] cupsLeft = cupsQueue
+                    .ToArray();
+
+                Console.WriteLine($"Cups: {string.Join(" ", cupsLeft)}");
+                Console.WriteLine($"Wasted litters of water: {wastedWater}");
+
+                List<List<List<int>>> dinamic = new List<List<List<int>>>();
+            }
+        }
+    }
+}
