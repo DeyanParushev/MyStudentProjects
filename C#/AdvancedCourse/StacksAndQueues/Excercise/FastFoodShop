@@ -1,0 +1,64 @@
+namespace FastFood
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            int orderCapacity = int.Parse(Console.ReadLine());
+
+            int[] orderList = Console.ReadLine()
+                .Split(' ')
+                .Select(int.Parse)
+                .ToArray();
+
+            Queue<int> orderQueue = new Queue<int>();
+
+            for (int i = 0; i < orderList.Length; i++)
+            {
+                orderQueue.Enqueue(orderList[i]);
+            }
+
+            if (orderCapacity >= 0 && orderCapacity <= 1000)
+            {
+                if (orderQueue.Count > 0)
+                {
+                    Console.WriteLine(orderQueue.Max());
+                }
+
+                while (orderQueue.Count > 0)
+                {
+                    int orderSize = orderQueue.Peek();
+
+                    if (orderSize <= orderCapacity)
+                    {
+                        orderQueue.Dequeue();
+                        orderCapacity -= orderSize;
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                }
+
+                if (orderQueue.Count <= 0)
+                {
+                    Console.WriteLine("Orders complete");
+                }
+                else
+                {
+                    Console.Write("Orders left:");
+                    while (orderQueue.Count > 0)
+                    {
+                        Console.Write($" {orderQueue.Dequeue()}");
+                    }
+                }
+            }
+        }
+    }
+}
+
