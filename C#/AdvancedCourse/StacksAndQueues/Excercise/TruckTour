@@ -1,0 +1,76 @@
+namespace TruckTour
+{
+    using System;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            int stationsCount = int.Parse(Console.ReadLine());
+
+            long fuelCapacity = 0;
+
+            long[] fuelFromStations = new long[stationsCount];
+
+            for (int i = 0; i < stationsCount; i++)
+            {
+                string[] stationInfo = Console.ReadLine()
+                    .Split(' ');
+
+                long fuelGiven = long.Parse(stationInfo[0]);
+                long distanceToNextStation = long.Parse(stationInfo[1]);
+
+                long totalFuelFromStation = fuelGiven - distanceToNextStation;
+
+                fuelFromStations[i] = totalFuelFromStation;
+            }
+
+            int startStationIndex = 0;
+
+            bool cicleComplete = false;
+
+            for (int i = 0; i < fuelFromStations.Length; i++)
+            {
+                int counter = 0;
+
+                if (fuelFromStations[i] < 0)
+                {
+                    continue;
+                }
+
+                for (int j = i; j <= fuelFromStations.Length; j++)
+                {
+
+                    if (j == fuelFromStations.Length)
+                    {
+                        j = 0;
+                    }
+
+                    if (counter == fuelFromStations.Length)
+                    {
+                        cicleComplete = true;
+                        break;
+                    }
+
+                    counter++;
+                    fuelCapacity += fuelFromStations[j];
+
+                    if (fuelCapacity < 0)
+                    {
+                        cicleComplete = false;
+                        counter = 0;
+                        break;
+                    }
+                }
+
+                if (cicleComplete == true)
+                {
+                    startStationIndex = i;
+                    break;
+                }
+            }
+
+            Console.WriteLine(startStationIndex);
+        }
+    }
+}
