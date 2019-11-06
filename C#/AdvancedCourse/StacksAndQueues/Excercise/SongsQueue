@@ -1,0 +1,62 @@
+namespace SongsQueue
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            string[] initialSongsInput = Console.ReadLine()
+                .Split(", ", StringSplitOptions.RemoveEmptyEntries)
+                .ToArray();
+
+            string commandLine = Console.ReadLine();
+
+            Queue<string> songQueue = new Queue<string>();
+
+            for (int i = 0; i < initialSongsInput.Length; i++)
+            {
+                songQueue.Enqueue(initialSongsInput[i]);
+            }
+
+            while (songQueue.Count > 0)
+            {
+                if (commandLine.Contains("Play"))
+                {
+                    if (songQueue.Count > 0)
+                    {
+                        songQueue.Dequeue();
+                    }
+                }
+                else if (commandLine.Contains("Add"))
+                {
+                    string songName = commandLine.Remove(0, 4);
+
+                    if (songQueue.Contains(songName))
+                    {
+                        Console.WriteLine($"{songName} is already contained!");
+                    }
+                    else
+                    {
+                        songQueue.Enqueue(songName);
+                    }
+                }
+                else if (commandLine.Contains("Show"))
+                {
+                    if (songQueue.Count > 0)
+                    {
+                        string[] songsArray = songQueue.ToArray();
+
+                        Console.WriteLine(string.Join(", ", songsArray));
+                    }
+                }
+
+                commandLine = Console.ReadLine();
+            }
+
+            Console.WriteLine("No more songs!");
+        }
+    }
+}
