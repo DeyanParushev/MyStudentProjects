@@ -1,0 +1,154 @@
+namespace Bombs
+{
+    using System;
+    using System.Linq;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            int matrixSize = int.Parse(Console.ReadLine());
+
+            int[,] squareMatrix = new int[matrixSize, matrixSize];
+
+            for (int i = 0; i < matrixSize; i++)
+            {
+                int[] rowInput = Console.ReadLine()
+                    .Split(' ')
+                    .Select(int.Parse)
+                    .ToArray();
+
+                for (int j = 0; j < matrixSize; j++)
+                {
+                    squareMatrix[i, j] = rowInput[j];
+                }
+            }
+
+            int[] bombLocations = Console.ReadLine()
+                .Split(", ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
+                .ToArray();
+
+            int index = 0;
+
+            for (int bombs = 0; bombs < bombLocations.Length / 2; bombs++)
+            {
+                int bombRow = bombLocations[index];
+                index++;
+
+                int bombColl = bombLocations[index];
+                index++;
+
+                int bombPowe = squareMatrix[bombRow, bombColl];
+
+                squareMatrix[bombRow, bombColl] = 0;
+
+                for (int row = bombRow - 1; row < bombRow + 2; row++)
+                {
+                    for (int coll = bombColl - 1; coll < bombColl + 2; coll++)
+                    {
+                        bool indexIsInside = IndexValidation(row, coll, squareMatrix);
+
+                        bool numberIsABomb = IsTheNumberABomb(row, coll, bombLocations);
+
+                        if (indexIsInside)
+                        {
+                            if (squareMatrix[row, coll] > 0)
+                            {
+                                squareMatrix[row, coll] -= bombPowe;
+                            }
+                        }
+                    }
+                }
+            }
+
+            int activeCells = 0;
+            int matrixSum = 0;
+
+            int[][] matrixForPrint = new int[matrixSize][];
+
+            for (int row = 0; row < squareMatrix.GetLength(0); row++)
+            {
+                matrixForPrint[row] = new int[matrixSize];
+
+                for (int coll = 0; coll < squareMatrix.GetLength(1); coll++)
+                {
+                    int number = squareMatrix[row, coll];
+
+                    if (number > 0)
+                    {
+                        activeCells++;
+                        matrixSum += number;
+                    }
+
+                    matrixForPrint[row][coll] = squareMatrix[row, coll];
+                }
+            }
+
+            Console.WriteLine($"Alive cells: {activeCells}");
+            Console.WriteLine($"Sum: {matrixSum}");
+
+            foreach (var item in matrixForPrint)
+            {
+                Console.WriteLine(string.Join(" ", item));
+            }
+        }
+
+        public static bool IsTheNumberABomb(int chechedNumberRow, int checkedNumberColl, int[] bombLocations)
+        {
+            bool theNumberIsAbomb = false;
+
+            int bombIndex = 0;
+
+            for (int i = 0; i < bombLocations.Length / 2; i++)
+            {
+                int bombRow = bombLocations[bombIndex];
+                bombIndex++;
+
+                int bombCol = bombLocations[bombIndex];
+                bombIndex++;
+
+                if (chechedNumberRow == bombRow)
+                {
+                    if (checkedNumberColl == bombCol)
+                    {
+                        theNumberIsAbomb = true;
+                        break;
+                    }
+                }
+            }
+
+            return theNumberIsAbomb;
+        }
+
+        public static bool IndexValidation(int row, int coll, int[,] matrix)
+        {
+            bool indexIsInTheMatrix = false;
+
+            if (row >= 0 && row < matrix.GetLength(0))
+            {
+                if (coll >= 0 && coll < matrix.GetLength(1))
+                {
+                    indexIsInTheMatrix = true;
+                }
+            }
+
+            return indexIsInTheMatrix;
+        }
+
+        private static bool NumberIsInBombRange(int bombRow, int bombColl, int numberRow, int numberCol)
+        {
+            bool numberIsInRange = false;
+
+            if (numberRow >= bombRow - 1 && numberRow <= bombRow + 1)
+            {
+                if (numberCol >= bombColl - 1 && numberCol <= numberCol + 1)
+                {
+                    numberIsInRange = true;
+                }
+            }
+
+            return numberIsInRange;
+        }
+    }
+}
