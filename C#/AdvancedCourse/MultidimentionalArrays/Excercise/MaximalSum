@@ -1,0 +1,78 @@
+namespace MaximalSum
+{
+    using System;
+    using System.Linq;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            int[] matrixSizeInput = Console.ReadLine()
+                .Split(' ')
+                .Select(int.Parse)
+                .ToArray();
+
+            int rows = matrixSizeInput[0];
+            int colls = matrixSizeInput[1];
+
+            long[,] matrix = new long[rows, colls];
+
+            for (int i = 0; i < rows; i++)
+            {
+
+                int[] inputRow = Console.ReadLine()
+                    .Split(' ')
+                    .Select(int.Parse)
+                    .ToArray();
+
+                for (int j = 0; j < colls; j++)
+                {
+                    matrix[i, j] = inputRow[j];
+                }
+            }
+
+            long maxSum = long.MinValue;
+
+            int subMatrixSize = 3; // taken from the given task
+            long subSum = 0;
+
+            int topIndex = 0;
+            int leftIndex = 0;
+
+            for (int row = 0; row < matrix.GetLength(0) - subMatrixSize + 1; row++)
+            {
+                for (int coll = 0; coll < matrix.GetLength(1) - subMatrixSize + 1; coll++)
+                {
+                    subSum = 0;
+
+                    for (int i = 0; i < subMatrixSize; i++)
+                    {
+                        for (int j = 0; j < subMatrixSize; j++)
+                        {
+                            subSum += matrix[row + i, coll + j];
+                        }
+                    }
+
+                    if (subSum > maxSum)
+                    {
+                        maxSum = subSum;
+                        topIndex = row;
+                        leftIndex = coll;
+                    }
+                }
+            }
+
+            Console.WriteLine($"Sum = {maxSum}");
+
+            for (int i = 0; i < subMatrixSize; i++)
+            {
+                for (int j = 0; j < subMatrixSize; j++)
+                {
+                    Console.Write(matrix[topIndex + i, leftIndex + j] + " ");
+                }
+
+                Console.WriteLine();
+            }
+        }
+    }
+}
