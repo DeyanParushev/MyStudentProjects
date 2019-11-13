@@ -1,0 +1,208 @@
+namespace Miner
+{
+    using System;
+    using System.Linq;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            int matrixSize = int.Parse(Console.ReadLine());
+
+            string[] commandLine = Console.ReadLine()
+                .Split(' ')
+                .ToArray();
+
+            char[][] mineField = new char[matrixSize][];
+
+            int startRow = 0;
+            int startColl = 0;
+
+            int endRow = 0;
+            int endColl = 0;
+
+            int coalFields = 0;
+
+            for (int rowInput = 0; rowInput < mineField.Length; rowInput++)
+            {
+                char[] row = Console.ReadLine()
+                    .Where(x => x != ' ')
+                    .ToArray();
+
+                mineField[rowInput] = new char[row.Length];
+
+                for (int coll = 0; coll < row.Length; coll++)
+                {
+                    mineField[rowInput][coll] = row[coll];
+
+                    if (row[coll] == 's')
+                    {
+                        startRow = rowInput;
+                        startColl = coll;
+                    }
+
+                    if (row[coll] == 'e')
+                    {
+                        endRow = rowInput;
+                        endColl = coll;
+                    }
+
+                    if (row[coll] == 'c')
+                    {
+                        coalFields++;
+                    }
+                }
+            }
+
+
+            int minerRow = startRow;
+            int minerColl = startColl;
+
+            bool endHasBeenReached = false;
+            bool fieldHasBeenMined = false;
+
+            for (int commandNumber = 0; commandNumber < commandLine.Length; commandNumber++)
+            {
+                string command = commandLine[commandNumber];
+
+                if (command == "left")
+                {
+                    if (!IndexInMatrixCheck(minerRow, minerColl - 1, mineField))
+                    {
+                        continue;
+                    }
+
+                    minerColl--;
+
+                    if (mineField[minerRow][minerColl] == 'e')
+                    {
+                        endHasBeenReached = true;
+                        break;
+                    }
+                    else if (mineField[minerRow][minerColl] == 'c')
+                    {
+                        mineField[minerRow][minerColl] = '*';
+                        coalFields--;
+
+                        if (coalFields <= 0)
+                        {
+                            fieldHasBeenMined = true;
+                            break;
+                        }
+                    }
+                }
+                else if (command == "right")
+                {
+                    if (!IndexInMatrixCheck(minerRow, minerColl + 1, mineField))
+                    {
+                        continue;
+                    }
+
+                    minerColl++;
+
+                    if (mineField[minerRow][minerColl] == 'e')
+                    {
+                        endHasBeenReached = true;
+                        break;
+                    }
+                    else if (mineField[minerRow][minerColl] == 'c')
+                    {
+                        mineField[minerRow][minerColl] = '*';
+                        coalFields--;
+
+                        if (coalFields <= 0)
+                        {
+                            fieldHasBeenMined = true;
+                            break;
+                        }
+                    }
+                }
+                else if (command == "up")
+                {
+
+                    if (!IndexInMatrixCheck(minerRow - 1, minerColl, mineField))
+                    {
+                        continue;
+                    }
+
+                    minerRow--;
+
+                    if (mineField[minerRow][minerColl] == 'e')
+                    {
+                        endHasBeenReached = true;
+                        break;
+                    }
+                    else if (mineField[minerRow][minerColl] == 'c')
+                    {
+                        mineField[minerRow][minerColl] = '*';
+                        coalFields--;
+
+                        if (coalFields <= 0)
+                        {
+                            fieldHasBeenMined = true;
+                            break;
+                        }
+                    }
+                }
+                else if (command == "down")
+                {
+
+                    if (!IndexInMatrixCheck(minerRow + 1, minerColl, mineField))
+                    {
+                        continue;
+                    }
+
+                    minerRow++;
+
+                    if (mineField[minerRow][minerColl] == 'e')
+                    {
+                        endHasBeenReached = true;
+                        break;
+                    }
+                    else if (mineField[minerRow][minerColl] == 'c')
+                    {
+                        mineField[minerRow][minerColl] = '*';
+                        coalFields--;
+
+                        if (coalFields <= 0)
+                        {
+                            fieldHasBeenMined = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (fieldHasBeenMined)
+            {
+                Console.WriteLine($"You collected all coals! ({minerRow}, { minerColl})");
+            }
+            else if (endHasBeenReached)
+            {
+                Console.WriteLine($"Game over! ({minerRow}, {minerColl})");
+            }
+            else
+            {
+                Console.WriteLine($"{coalFields} coals left. ({minerRow}, {minerColl})");
+            }
+        }
+
+        public static bool IndexInMatrixCheck(int rowIndex, int collIndex, char[][] matrix)
+        {
+            int row = rowIndex;
+            int coll = collIndex;
+
+            bool indexIsInRange = false;
+
+            if (row >= 0 && row < matrix.GetLength(0))
+            {
+                if (coll >= 0 && coll < matrix[row].Length)
+                {
+                    indexIsInRange = true;
+                }
+            }
+
+            return indexIsInRange;
+        }
+    }
+}
