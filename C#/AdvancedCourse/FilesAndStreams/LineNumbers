@@ -1,0 +1,32 @@
+namespace LineNumbers
+{
+    using System;
+    using System.IO;
+    using System.Text;
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            StreamReader reader = new StreamReader(@"C:\Users\HP\Documents\SoftUni\AdvancedCourse\FilesAndDirectories-Resources\Resources\02. Line Numbers\Input.txt");
+
+            using (reader)
+            {
+                StreamWriter writer = new StreamWriter(@"C:\Users\HP\Documents\SoftUni\AdvancedCourse\FilesAndDirectories-Resources\Resources\Solutions\2. Line Number - Solution.txt");
+
+                int counter = 1;
+                using (writer)
+                {
+
+                    while (!reader.EndOfStream)
+                    {
+                        string line = reader.ReadLine();
+
+                        writer.WriteLine($"{counter}. {line}");
+                        counter++;
+                    }
+                }
+            }
+        }
+    }
+}
