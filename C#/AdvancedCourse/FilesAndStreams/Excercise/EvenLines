@@ -1,0 +1,54 @@
+namespace EvenLines
+{
+    using System;
+    using System.IO;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            StreamReader reader = new StreamReader("text.txt");
+
+            char[] charsToReplace = "-,.!?".ToCharArray();
+
+            using (reader)
+            {
+                string inputLine = "";
+                int counter = 0;
+
+                while (!reader.EndOfStream)
+                {
+                    inputLine = reader.ReadLine();
+
+                    if (counter % 2 == 0)
+                    {
+                        string[] wordsLine = inputLine.Split(' ');
+
+                        for (int i = 0; i < wordsLine.Length; i++)
+                        {
+                            for (int symbol = 0; symbol < charsToReplace.Length; symbol++)
+                            {
+                                if (wordsLine[i].Contains(charsToReplace[symbol]))
+                                {
+                                    wordsLine[i] = wordsLine[i].Replace(charsToReplace[symbol], '@');
+                                }
+                            }
+                        }
+
+                        for (int i = wordsLine.Length - 1; i >= 0; i--)
+                        {
+                            Console.Write(wordsLine[i] + " ");
+                        }
+
+                        Console.WriteLine();
+                    }
+
+                    counter++;
+                }
+            }
+        }
+    }
+}
