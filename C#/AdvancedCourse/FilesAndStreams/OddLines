@@ -1,0 +1,36 @@
+namespace OddLines
+{
+    using System;
+    using System.IO;
+    using System.Text;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            StreamReader read = new StreamReader(@"C:\Users\HP\Documents\SoftUni\AdvancedCourse\FilesAndDirectories-Resources\Resources\01. Odd Lines\Input.txt", Encoding.UTF8);
+
+            using (read)
+            {
+                int counter = 0;
+
+                StreamWriter write = new StreamWriter(@"C:\Users\HP\Documents\SoftUni\AdvancedCourse\FilesAndDirectories-Resources\Resources\Solutions\01.Odd Lines - Solution.txt");
+
+                using (write)
+                {
+                    while (!read.EndOfStream)
+                    {
+                        string line = read.ReadLine();
+                        if (counter % 2 == 1)
+                        {
+                            write.WriteLine(line);
+                        }
+
+                        counter++;
+
+                    }
+                }
+            }
+        }
+    }
+}
