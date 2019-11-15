@@ -1,0 +1,80 @@
+namespace NumberTheLines
+{
+    using System.IO;
+
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            FileStream file = new FileStream("text.txt", FileMode.Open, FileAccess.ReadWrite);
+
+            Directory.CreateDirectory("../../../Output");
+
+            StreamWriter write = new StreamWriter("../../../Output/output.txt");
+
+            byte[] buffer = new byte[file.Length];
+
+            char newLineChar = (char)10;
+
+            using (file)
+            {
+                file.Read(buffer, 0, buffer.Length);
+            }
+
+            string line = "";
+            int lineNumber = 1;
+            int charCount = 0;
+            int punctuationCount = 0;
+
+            using (write)
+            {
+
+                for (int i = 0; i < buffer.Length; i++)
+                {
+                    char symbol = (char)buffer[i];
+
+                    if (symbol == '\r')
+                    {
+                        continue;
+                    }
+
+                    if (symbol != newLineChar)
+                    {
+                        line += symbol;
+
+                        if (char.IsLetter(symbol))
+                        {
+                            charCount++;
+                        }
+                        else
+                        {
+                            switch (symbol)
+                            {
+                                case '-':
+                                case ',':
+                                case '.':
+                                case '!':
+                                case '?':
+                                case '\'':
+
+                                    punctuationCount++;
+
+                                    break;
+                            }
+                        }
+                    }
+                    else
+                    {
+
+                        write.WriteLine($"Line{lineNumber}: {line} ({charCount}) ({punctuationCount})");
+
+                        line = "";
+                        punctuationCount = 0;
+                        charCount = 0;
+                        lineNumber++;
+                    }
+                }
+            }
+        }
+    }
+}
