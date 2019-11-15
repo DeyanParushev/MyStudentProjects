@@ -1,0 +1,92 @@
+namespace WordCounter
+{
+    using System;
+    using System.IO;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            StreamReader wordsReader = new StreamReader(@"C:\Users\HP\Documents\SoftUni\AdvancedCourse\FilesAndDirectories-Resources\Resources\03. Word Count\words.txt");
+
+            Dictionary<string, int> wordCounter = new Dictionary<string, int>();
+
+            WordsFromFileToDictionary(wordCounter, wordsReader);
+
+            wordsReader = new StreamReader(@"C:\Users\HP\Documents\SoftUni\AdvancedCourse\FilesAndDirectories-Resources\Resources\03. Word Count\text.txt");
+
+            CountingTheWordsFromTextFile(wordCounter, wordsReader);
+
+            wordCounter = wordCounter
+                .OrderByDescending(x => x.Value)
+                .ToDictionary(x => x.Key, x => x.Value);
+
+            StreamWriter write = new StreamWriter(@"C:\Users\HP\Documents\SoftUni\AdvancedCourse\FilesAndDirectories-Resources\Resources\Solutions\3. Word count - Solution.txt");
+
+            WritingTheOutput(wordCounter, write);
+        }
+
+        static void WordsFromFileToDictionary(Dictionary<string, int> output, StreamReader wordsReader)
+        {
+            using (wordsReader)
+            {
+                string word = "";
+
+                while (!wordsReader.EndOfStream)
+                {
+                    char symbol = (char)wordsReader.Read();
+
+                    if (symbol != ' ')
+                    {
+                        word += symbol;
+                    }
+
+                    if (symbol == ' ' || wordsReader.EndOfStream)
+                    {
+                        output.Add(word.ToLower(), 0);
+                        word = "";
+                    }
+                }
+            }
+        }
+
+        static void CountingTheWordsFromTextFile(Dictionary<string, int> output, StreamReader wordsReader)
+        {
+            using (wordsReader)
+            {
+                string line = "";
+
+                while (!wordsReader.EndOfStream)
+                {
+                    line = wordsReader.ReadLine();
+
+                    string[] wordsInLine = line
+                        .Split(" - ,.".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+
+                    for (int wordInArr = 0; wordInArr < wordsInLine.Length; wordInArr++)
+                    {
+                        string word = wordsInLine[wordInArr].ToLower();
+
+                        if (output.ContainsKey(word))
+                        {
+                            output[word]++;
+                        }
+                    }
+                }
+            }
+        }
+
+        static void WritingTheOutput(Dictionary<string, int> output, StreamWriter write)
+        {
+            using (write)
+            {
+                foreach (KeyValuePair<string, int> wordAndItsCount in output)
+                {
+                    write.WriteLine($"{wordAndItsCount.Key} - {wordAndItsCount.Value}");
+                }
+            }
+        }
+    }
+}
