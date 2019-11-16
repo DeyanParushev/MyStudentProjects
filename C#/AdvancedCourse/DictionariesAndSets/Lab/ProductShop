@@ -1,0 +1,61 @@
+namespace ProductShop
+{
+    using System;
+    using System.Collections.Generic;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            string[] commandLine = Console.ReadLine()
+                .Split(", ");
+
+            string command = commandLine[0];
+
+            SortedDictionary<string, Dictionary<string, double>> shops = new SortedDictionary<string, Dictionary<string, double>>();
+
+            while (command != "Revision")
+            {
+                string shopName = command;
+                string productName = commandLine[1];
+                double productPrice = double.Parse(commandLine[2]);
+
+                if (!shops.ContainsKey(shopName))
+                {
+                    shops.Add(shopName, new Dictionary<string, double>());
+
+                    if (!shops[shopName].ContainsKey(productName))
+                    {
+                        shops[shopName].Add(productName, 0);
+                    }
+
+                    shops[shopName][productName] = productPrice;
+                }
+                else
+                {
+                    if (!shops[shopName].ContainsKey(productName))
+                    {
+                        shops[shopName].Add(productName, 0);
+                    }
+
+                    shops[shopName][productName] = productPrice;
+                }
+
+                commandLine = Console.ReadLine()
+                    .Split(", ");
+
+                command = commandLine[0];
+            }
+
+            foreach (KeyValuePair<string, Dictionary<string, double>> shop in shops)
+            {
+                Console.WriteLine($"{shop.Key}->");
+
+                foreach (KeyValuePair<string, double> product in shop.Value)
+                {
+                    Console.WriteLine($"Product: {product.Key}, Price: {product.Value}");
+                }
+            }
+        }
+    }
+}
