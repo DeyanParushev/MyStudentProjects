@@ -1,0 +1,82 @@
+namespace SoftUniParty
+{
+    using System;
+    using System.Collections.Generic;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            HashSet<string> guestList = new HashSet<string>();
+
+            HashSet<string> vipGuests = new HashSet<string>();
+
+            string input = Console.ReadLine();
+
+            while (input != "PARTY")
+            {
+                if (char.IsDigit(input[0]))
+                {
+                    vipGuests.Add(input);
+                }
+                else
+                {
+                    guestList.Add(input);
+                }
+
+                input = Console.ReadLine();
+            }
+
+            input = Console.ReadLine();
+
+            while (input != "END")
+            {
+                if (char.IsDigit(input[0]))
+                {
+                    if (vipGuests.Count > 0)
+                    {
+                        vipGuests.Remove(input);
+                    }
+                }
+                else
+                {
+                    if (guestList.Count > 0)
+                    {
+                        guestList.Remove(input);
+                    }
+                }
+
+                input = Console.ReadLine();
+            }
+
+            Console.WriteLine(guestList.Count + vipGuests.Count);
+
+            if (vipGuests.Count > 0)
+            {
+                foreach (string name in vipGuests)
+                {
+                    Console.WriteLine(name);
+                }
+
+                if (guestList.Count > 0)
+                {
+                    foreach (string name in guestList)
+                    {
+                        Console.WriteLine(name);
+                    }
+                }
+            }
+            else
+            {
+                if (guestList.Count > 0)
+                {
+                    foreach (string name in guestList)
+                    {
+                        Console.WriteLine(name);
+                    }
+                }
+            }
+
+        }
+    }
+}
