@@ -1,0 +1,40 @@
+namespace EvenTimes
+{
+    using System;
+    using System.Collections.Generic;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            int iterations = int.Parse(Console.ReadLine());
+
+            Dictionary<int, int> numbersAnTheirOccurances = new Dictionary<int, int>();
+
+            for (int i = 0; i < iterations; i++)
+            {
+                int number = int.Parse(Console.ReadLine());
+
+                if (!numbersAnTheirOccurances.ContainsKey(number))
+                {
+                    numbersAnTheirOccurances.Add(number, 0);
+                }
+
+                numbersAnTheirOccurances[number]++;
+            }
+
+            int output = 0;
+
+            foreach (KeyValuePair<int, int> number in numbersAnTheirOccurances)
+            {
+                if (number.Value % 2 == 0)
+                {
+                    output = number.Key;
+                    break;
+                }
+            }
+
+            Console.WriteLine(output);
+        }
+    }
+}
