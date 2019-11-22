@@ -1,0 +1,37 @@
+namespace CountUpperWords
+{
+    using System;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            string[] inputArr = Console.ReadLine()
+                .Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+            Func<string, bool> predicate = UpperCaseWord;
+
+            Action<string> action = Console.WriteLine;
+
+            foreach (string item in inputArr)
+            {
+                if (predicate(item))
+                {
+                    action(item);
+                }
+            }
+        }
+
+        static bool UpperCaseWord(string input)
+        {
+            bool upperCaseWord = false;
+
+            if (char.IsUpper(input[0]))
+            {
+                upperCaseWord = true;
+            }
+
+            return upperCaseWord;
+        }
+    }
+}
