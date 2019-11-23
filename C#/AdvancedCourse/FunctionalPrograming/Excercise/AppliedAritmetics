@@ -1,0 +1,87 @@
+namespace AppliedArithmetics
+{
+    using System;
+    using System.Linq;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            int[] input = Console.ReadLine()
+                .Split(' ')
+                .Select(int.Parse)
+                .ToArray();
+
+            string command = Console.ReadLine();
+
+            Func<int[], int[]> add = Add;
+            Func<int[], int[]> substract = Substract;
+            Func<int[], int[]> multiply = Multiply;
+
+            Action<string> print = Console.WriteLine;
+
+            while (command != "end")
+            {
+                switch (command)
+                {
+                    case "add":
+
+                        add(input);
+
+                        break;
+
+                    case "subtract":
+
+                        substract(input);
+
+                        break;
+
+                    case "multiply":
+
+                        multiply(input);
+
+                        break;
+
+                    case "print":
+
+                        print(string.Join(' ', input));
+
+                        break;
+
+                }
+
+                command = Console.ReadLine();
+            }
+        }
+
+        static public int[] Add(int[] collection)
+        {
+            for (int i = 0; i < collection.Length; i++)
+            {
+                collection[i]++;
+            }
+
+            return collection;
+        }
+
+        static public int[] Substract(int[] collection)
+        {
+            for (int i = 0; i < collection.Length; i++)
+            {
+                collection[i]--;
+            }
+
+            return collection;
+        }
+
+        static public int[] Multiply(int[] collection)
+        {
+            for (int i = 0; i < collection.Length; i++)
+            {
+                collection[i] *= 2;
+            }
+
+            return collection;
+        }
+    }
+}
