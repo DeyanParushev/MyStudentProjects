@@ -1,0 +1,21 @@
+namespace KnightOfHonor
+{
+    using System;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            string[] input = Console.ReadLine().Split();
+
+            Func<string, string> concat = x => "Sir " + x;
+
+            Action<string> print = Console.WriteLine;
+
+            foreach (string name in input)
+            {
+                print(concat(name));
+            }
+        }
+    }
+}
