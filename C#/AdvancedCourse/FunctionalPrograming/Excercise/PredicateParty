@@ -1,0 +1,53 @@
+namespace PredicateParty
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            List<string> initialList = Console.ReadLine()
+                .Split(" ")
+                .ToList();
+
+            string userCommand = Console.ReadLine();
+
+            Func<string, string, bool> startsWithPredicate = (x, y) => x.StartsWith(y);
+            Func<string, string, bool> endssWithPredicate = (x, y) => x.EndsWith(y);
+            Func<string, string, bool> lengthPredicate = (x, y) => x.Length == int.Parse(y);
+
+            while (userCommand != "Party!")
+            {
+                string[] commandLine = userCommand.Split();
+
+                string command = commandLine[0];
+
+                if (command == "Double")
+                {
+                    string condition = commandLine[1];
+                    string parameter = commandLine[2];
+
+                    if (condition == "StartsWith")
+                    {
+                        int initialCount = initialList.Count;
+
+                        for (int i = 0; i < initialCount; i++)
+                        {
+                            if (startsWithPredicate(initialList[i], parameter))
+                            {
+                                initialList.Insert(i - 1, initialList[i]);
+                                i++;
+                            }
+                        }
+                    }
+                }
+                else if (command == "Remove")
+                {
+
+                }
+            }
+        }
+    }
+}
