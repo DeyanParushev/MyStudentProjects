@@ -1,0 +1,54 @@
+namespace FindEvenOrOdd
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            int[] range = Console.ReadLine()
+                .Split()
+                .Select(int.Parse)
+                .ToArray();
+
+            int[] arr = Enumerable.Range(range[0], range[1] - range[0] + 1)
+                .ToArray();
+
+            string numberType = Console.ReadLine();
+
+            Predicate<int> even = x => x % 2 == 0;
+
+            List<int> outputEven = new List<int>();
+            List<int> outputOdd = new List<int>();
+
+            foreach (int number in arr)
+            {
+                if (numberType == "even")
+                {
+                    if (even(number))
+                    {
+                        outputEven.Add(number);
+                    }
+                }
+                else
+                {
+                    if (!even(number))
+                    {
+                        outputOdd.Add(number);
+                    }
+                }
+            }
+
+            if (numberType == "odd")
+            {
+                Console.WriteLine(string.Join(" ", outputOdd));
+            }
+            else
+            {
+                Console.WriteLine(string.Join(" ", outputEven));
+            }
+        }
+    }
+}
