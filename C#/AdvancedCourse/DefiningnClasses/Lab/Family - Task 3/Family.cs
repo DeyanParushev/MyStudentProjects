@@ -16,6 +16,24 @@ namespace DefiningClasses
         {
             this.family.Add(person);
         }
+
+        public Person GetOldestMemeber()
+        {
+            int oldestAge = family
+                .Max(x => x.Age);
+
+            Person oldestPerson = new Person();
+
+            foreach (Person person in family)
+            {
+                if (person.Age == oldestAge)
+                {
+                    oldestPerson = person;
+                    break;
+                }
+            }
+
+            return oldestPerson;
+        }
     }
 }
-        
