@@ -25,8 +25,8 @@ namespace DefiningClasses
             this.Name = name;
         }
 
-        public string Name { get => name; set => name = value; }
+        public string Name { get => this.name; set => this.name = value; }
 
-        public int Age { get => age; set => age = value; }
+        public int Age { get => this.age; set => this.age = value; }
     }
 }
