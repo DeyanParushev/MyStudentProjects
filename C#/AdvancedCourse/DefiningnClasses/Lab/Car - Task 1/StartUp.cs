@@ -7,12 +7,12 @@ namespace DefiningClasses
     {
         public static void Main()
         {
-            int carNumber = int.Parse(Console.ReadLine());
+            int carsNumber = int.Parse(Console.ReadLine());
 
             HashSet<string> carNames = new HashSet<string>();
             List<Car> cars = new List<Car>();
 
-            for (int i = 0; i < carNumber; i++)
+            for (int i = 0; i < carsNumber; i++)
             {
                 string[] inputInfo = Console.ReadLine()
                     .Split();
