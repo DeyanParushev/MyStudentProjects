@@ -10,7 +10,6 @@ namespace PizzaCalories
 
         public Dough()
         {
-
         }
 
         public Dough(string flourType, string bakingTechnique, double weight)
