@@ -48,7 +48,6 @@ namespace PizzaCalories
             catch (Exception ex)
             {
                 string exceptionMessage = ex.Message;
-
                 Console.WriteLine(exceptionMessage);
             }
         }
