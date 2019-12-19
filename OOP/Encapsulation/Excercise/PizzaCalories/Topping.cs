@@ -33,7 +33,6 @@ namespace PizzaCalories
         private double Weight
         {
             get => weight;
-
             set
             {
                 if (value >= 1 && value <= 50)
