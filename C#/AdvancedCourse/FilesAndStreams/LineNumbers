@@ -17,7 +17,6 @@ namespace LineNumbers
                 int counter = 1;
                 using (writer)
                 {
-
                     while (!reader.EndOfStream)
                     {
                         string line = reader.ReadLine();
