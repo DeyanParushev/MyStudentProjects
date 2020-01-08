@@ -1,5 +1,4 @@
-# MyStudentProjects is my personal repository of all the solutions to the tasks I was given in the different courses from
-# the 2 year programe of SoftUni C# Web Development. 
+# MyStudentProjects is my personal repository of all the solutions to the tasks I was given in the different courses from the 2 year programe of SoftUni C# Web Development. 
 
 Each course is divided to different topics and every topic has a lecture and excercise.
 The lectures are designed to introduce the students to concepts of the topic discussed and the tasks given upon the lecture material 
