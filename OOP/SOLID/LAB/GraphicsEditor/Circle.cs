@@ -2,9 +2,9 @@ namespace P02.Graphic_Editor
 {
     public class Circle : IShape
     {
-        public void Draw()
+        public string Draw()
         {
-            
+            return "A circle is drawn";
         }
     }
 }
