@@ -1,0 +1,31 @@
+namespace Logger
+{
+    using System;
+    using Logger.Interfaces;
+
+    public class ConsoleAppender : Appender
+    {
+        public ConsoleAppender(ILayout layout)
+            : base(layout)
+        {
+        }
+
+        public override void Append(string dateTime, string message, string errorLevel)
+        {
+            int alertLevel = base.GetLogAlertLevel(errorLevel);
+
+            if (alertLevel >= base.reportLevelInt)
+            {
+                base.appendedMessages++;
+                base.SetLayoutInformation(dateTime, message, errorLevel);
+
+                Console.Write(base.GetLayout());
+            }
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+    }
+}
