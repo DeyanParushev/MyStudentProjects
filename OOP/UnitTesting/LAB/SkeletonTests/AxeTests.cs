@@ -38,3 +38,4 @@ public class AxeTests
         Assert.AreEqual(4, axe.DurabilityPoints);
     }
 }
+
