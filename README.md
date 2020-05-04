@@ -3,10 +3,10 @@
 The programme includes the folowing courses: 
 
 - C# Fundamentals - the course provides basic knowledge of OOP and data structures like dictionaries, lists, queues etc.
-- C# Advanced - the course extends the basic knowledge of OOP fromm the previous module and gives deeper fundamentals on data structures.
-- C# OOP - the course reviews the principles of OOP and SOLID, also reviews some of the basic architecture designs.
+- C# Advanced - the course extends the basic knowledge of OOP fromm the previous module, gives deeper fundamentals on data structures and introduces the participants to the unit testing and TDD concepts.
+- C# OOP - the course reviews the principles of OOP and SOLID, also reviews some of the basic designs patterns.
 - JS Advanced - the course covers the fundamentals of functional programming and provides extensive knowledge of the DOM and DOM manipulation.
-- JS Applications - lays down the fundamentals of working with HTTP protocol, REST and RESTFULL services. 
+- JS Applications - lays down the fundamentals of working with HTTP protocol, REST and RESTfull services, remote databases (Firebase) and the full build up of an SPA application. 
 - MS SQL - introduces the students to database structures and manipulations provides basic knoweledge of ER diagrams, the SQL language and ACID transactions. 
 
 Each course is divided to different topics and every topic has a lecture and excercise.
