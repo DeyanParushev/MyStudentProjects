@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Books</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+    <button id="loadBooks">LOAD ALL BOOKS</button>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Isbn</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <form>
+        <h3>FORM</h3>
+        <label>TITLE</label>
+        <input type="title" id="title" placeholder="Title...">
+        <label>AUTHOR</label>
+        <input type="title" id="author" placeholder="Author...">
+        <label>ISBN</label>
+        <input type="title" id="isbn" placeholder="Isnb...">
+        <button>Submit</button>
+    </form>
+    <script type='module' src="./app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/7.11.0/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/7.11.0/firebase-auth.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/7.11.0/firebase-firestore.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyBC8BUKNPDWHSSlS6WsHCauTtB30enUfrs",
+            authDomain: "testapp-1045f.firebaseapp.com",
+            databaseURL: "https://testapp-1045f.firebaseio.com",
+            projectId: "testapp-1045f",
+            storageBucket: "testapp-1045f.appspot.com",
+            messagingSenderId: "566080943821",
+            appId: "1:566080943821:web:b05a734dcc78de5a015b84"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+</body>
+
+</html>
+
+<!--Feel free to change/update/modify the HTML Structure-->
