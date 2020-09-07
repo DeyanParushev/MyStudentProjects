@@ -1,0 +1,40 @@
+namespace PredicateForNames
+{
+    using System;
+    public class Program
+    {
+        public static void Main()
+        {
+            int nameLength = int.Parse(Console.ReadLine());
+
+            string[] inputNames = Console.ReadLine()
+                .Split(" ");
+
+            Func<string, int, bool> predicate = NameLenghtValidator;
+
+            Action<string> print = Console.WriteLine;
+
+            foreach (string name in inputNames)
+            {
+                if (predicate(name, nameLength))
+                {
+                    print(name);
+                }
+            }
+
+
+        }
+
+        static public bool NameLenghtValidator(string name, int nameLenght)
+        {
+            bool validator = false;
+
+            if (name.Length <= nameLenght)
+            {
+                validator = true;
+            }
+
+            return validator;
+        }
+    }
+}

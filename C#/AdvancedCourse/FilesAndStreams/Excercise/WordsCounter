@@ -1,0 +1,19 @@
+namespace WordsCounter
+{
+    using System.IO;
+   
+    public class Program
+    {
+        public static void Main()
+        {
+            Directory.CreateDirectory("../../../Output");
+
+            FileStream textReader = new FileStream("text.txt", FileMode.OpenOrCreate, FileAccess.Read);
+            FileStream expectedResultsReader = new FileStream("expectedResult.txt", FileMode.OpenOrCreate, FileAccess.Read);
+
+            StreamWriter write = new StreamWriter("../../../Output/actualResults.txt");
+
+
+        }
+    }
+}

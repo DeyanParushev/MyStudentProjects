@@ -1,0 +1,48 @@
+namespace SumMatrixCollums
+{
+    using System;
+    using System.Linq;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            int[] input = Console.ReadLine()
+                .Split(", ")
+                .Select(int.Parse)
+                .ToArray();
+
+            int rows = input[0];
+            int colls = input[1];
+
+            int[,] matrix = new int[rows, colls];
+
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                int[] rowsArr = Console.ReadLine()
+                    .Split(' ')
+                    .Select(int.Parse)
+                    .ToArray();
+
+                for (int j = 0; j < matrix.GetLength(1); j++)
+                {
+                    matrix[i, j] = rowsArr[j];
+                }
+            }
+
+            for (int i = 0; i < matrix.GetLength(1); i++)
+            {
+                int sumColl = 0;
+
+                for (int j = 0; j < matrix.GetLength(0); j++)
+                {
+                    int number = matrix[j, i];
+                    sumColl += matrix[j, i];
+
+                }
+
+                Console.WriteLine(sumColl);
+            }
+        }
+    }
+}

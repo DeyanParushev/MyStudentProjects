@@ -1,0 +1,25 @@
+namespace AddVat
+{
+    using System;
+    using System.Linq;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            double[] inputArr = Console.ReadLine()
+                .Split(", ")
+                .Select(double.Parse)
+                .ToArray();
+
+            Func<double, double> addVAT = x => x * 1.2;
+
+            Action<string> action = Console.WriteLine;
+
+            foreach (var item in inputArr)
+            {
+                action(addVAT(item).ToString("F2"));
+            }
+        }
+    }
+}

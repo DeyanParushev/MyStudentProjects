@@ -1,0 +1,74 @@
+namespace TheV_Logger
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public class Program
+    {
+        public static void Main()
+        {
+
+            string[] input = Console.ReadLine()
+                .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .ToArray();
+
+            string command = input[0];
+
+            Dictionary<string, List<string>> vlogerAndHisFollowers = new Dictionary<string, List<string>>();
+            Dictionary<string, List<string>> vlogerAndHisFollowINGS = new Dictionary<string, List<string>>();
+
+            while (command != "Statistics")
+            {
+                string vloggerName = command;
+                string acction = input[1];
+                string vlogerToBeFollowed = input[2];
+
+                if (acction == "joined")
+                {
+                    if (vloggerName.Contains(' '))
+                    {
+                        continue;
+                    }
+
+                    if (!vlogerAndHisFollowers.ContainsKey(vloggerName))
+                    {
+                        vlogerAndHisFollowers.Add(vloggerName, new List<string>());
+                        vlogerAndHisFollowINGS.Add(vloggerName, new List<string>());
+                    }
+                }
+                else if (acction == "followed")
+                {
+                    if (vloggerName.Contains(' '))
+                    {
+                        continue;
+                    }
+
+                    if (vloggerName == vlogerToBeFollowed)
+                    {
+                        continue;
+                    }
+
+                    if (vlogerAndHisFollowers.ContainsKey(vlogerToBeFollowed) && vlogerAndHisFollowINGS.ContainsKey(vloggerName))
+                    {
+                        if (!vlogerAndHisFollowers[vlogerToBeFollowed].Contains(vloggerName))
+                        {
+                            if (!vlogerAndHisFollowINGS[vloggerName].Contains(vlogerToBeFollowed))
+                            {
+                                vlogerAndHisFollowers[vlogerToBeFollowed].Add(vloggerName);
+                                vlogerAndHisFollowINGS[vloggerName].Add(vlogerToBeFollowed);
+                            }
+                        }
+                    }
+                }
+
+                input = Console.ReadLine()
+                    .Split(' ');
+
+                command = input[0];
+            }
+
+            Console.WriteLine();
+        }
+    }
+}

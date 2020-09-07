@@ -1,0 +1,49 @@
+namespace ParkingLot
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            string input = Console.ReadLine();
+
+            HashSet<string> liscencePlatesInTheParking = new HashSet<string>();
+
+            while (input != "END")
+            {
+                string[] inputLine = input
+                    .Split(", ")
+                    .ToArray();
+
+                string direction = inputLine[0];
+                string licencePlateNumber = inputLine[1];
+
+                if (direction == "IN")
+                {
+                    liscencePlatesInTheParking.Add(licencePlateNumber);
+                }
+                else
+                {
+                    liscencePlatesInTheParking.Remove(licencePlateNumber);
+                }
+
+                input = Console.ReadLine();
+            }
+
+            if (liscencePlatesInTheParking.Count > 0)
+            {
+                foreach (string plateNumber in liscencePlatesInTheParking)
+                {
+                    Console.WriteLine(plateNumber);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Parking Lot is Empty");
+            }
+        }
+    }
+}

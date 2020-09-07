@@ -1,0 +1,37 @@
+namespace StudentAverageGrade
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            int numberOfStudents = int.Parse(Console.ReadLine());
+
+            Dictionary<string, List<double>> students = new Dictionary<string, List<double>>();
+
+            for (int i = 0; i < numberOfStudents; i++)
+            {
+                string[] input = Console.ReadLine()
+                    .Split(' ');
+
+                string studentName = input[0];
+                double stidentGrade = double.Parse(input[1]);
+
+                if (!students.ContainsKey(studentName))
+                {
+                    students.Add(studentName, new List<double>());
+                }
+
+                students[studentName].Add(stidentGrade);
+            }
+
+            foreach (KeyValuePair<string, List<double>> strudent in students)
+            {
+                Console.WriteLine($"{strudent.Key} -> {string.Join(" ", strudent.Value.Select(x => x.ToString("F2")))} (avg: {strudent.Value.Average():F2})");
+            }
+        }
+    }
+}

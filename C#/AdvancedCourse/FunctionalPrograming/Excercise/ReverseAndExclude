@@ -1,0 +1,49 @@
+namespace ReverseAndExclude
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            int[] input = Console.ReadLine()
+                .Split(' ')
+                .Select(int.Parse)
+                .ToArray();
+
+            int devider = int.Parse(Console.ReadLine());
+
+            Func<int[], int[]> reverse = ReverseArr;
+
+            Func<int, bool> predicate = x => x % devider == 0;
+
+            int[] reversed = reverse(input);
+
+            List<int> output = new List<int>();
+
+            for (int i = 0; i < reversed.Length; i++)
+            {
+                if (!predicate(reversed[i]))
+                {
+                    output.Add(reversed[i]);
+                }
+            }
+
+            Console.WriteLine(string.Join(" ", output));
+        }
+
+        static public int[] ReverseArr(int[] input)
+        {
+            int[] reversed = new int[input.Length];
+
+            for (int i = input.Length - 1, k = 0; i >= 0; i--, k++)
+            {
+                reversed[k] = input[i];
+            }
+
+            return reversed;
+        }
+    }
+}

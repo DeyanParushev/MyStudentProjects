@@ -1,0 +1,43 @@
+namespace PrimaryDiagonal
+{
+    using System;
+    using System.Linq;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            int matrixSize = int.Parse(Console.ReadLine());
+
+            int[,] squareMatrix = new int[matrixSize, matrixSize];
+
+            for (int i = 0; i < matrixSize; i++)
+            {
+                int[] rowInput = Console.ReadLine()
+                    .Split(' ')
+                    .Select(int.Parse)
+                    .ToArray();
+
+                for (int j = 0; j < matrixSize; j++)
+                {
+                    squareMatrix[i, j] = rowInput[j];
+                }
+            }
+
+            int rowIndex = 0;
+            int collIndex = 0;
+
+            int primaryDiagonalSum = 0;
+
+            while (rowIndex < matrixSize)
+            {
+                primaryDiagonalSum += squareMatrix[rowIndex, collIndex];
+
+                rowIndex++;
+                collIndex++;
+            }
+
+            Console.WriteLine(primaryDiagonalSum);
+        }
+    }
+}

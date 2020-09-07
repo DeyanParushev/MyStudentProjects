@@ -1,0 +1,82 @@
+namespace SimpleTextEditor
+{
+    using System;
+    using System.Collections.Generic;
+
+    public class Program
+    {
+       public static void Main()
+        {
+            int numberOfOperations = int.Parse(Console.ReadLine());
+
+            Stack<string> argumentStack = new Stack<string>();
+
+            string output = "";
+
+            argumentStack.Push(output);
+
+            for (int i = 0; i < numberOfOperations; i++)
+            {
+                string[] commandLine = Console.ReadLine()
+                    .Split(' ');
+
+                int commandCode = int.Parse(commandLine[0]);
+
+                if (commandCode >= 1 && commandCode <= 4)
+                {
+                    if (commandCode == 1)
+                    {
+                        string addition = commandLine[1];
+
+                        output += addition;
+
+                        argumentStack.Push(output);
+                    }
+                    else if (commandCode == 2)
+                    {
+                        int charsToRemove = int.Parse(commandLine[1]);
+
+                        if (output.Length > charsToRemove)
+                        {
+                            if (output.Length > 0)
+                            {
+                                output = output.Remove(output.Length - charsToRemove - 1, charsToRemove);
+                                argumentStack.Push(output);
+                            }
+                        }
+                        else
+                        {
+                            output = string.Empty;
+                            argumentStack.Push(output);
+                        }
+                    }
+
+                    if (commandCode == 3)
+                    {
+                        int charIndex = int.Parse(commandLine[1]);
+                        if (output.Length > 0)
+                        {
+                            if (charIndex > 0 && charIndex <= output.Length)
+                            {
+                                Console.WriteLine(output[charIndex - 1]);
+                            }
+                        }
+                    }
+
+                    if (commandCode == 4)
+                    {
+                        if (argumentStack.Count > 0)
+                        {
+                            argumentStack.Pop();
+                            output = argumentStack.Peek();
+                        }
+                        else
+                        {
+                            output = string.Empty;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,42 @@
+namespace SliceAFile
+{
+    using System;
+    using System.IO;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            FileInfo info = new FileInfo(@"C:\Users\HP\Documents\SoftUni\AdvancedCourse\FilesAndDirectories-Resources\Resources\05. Slice File\sliceMe.txt");
+
+            byte[] buffer = new byte[info.Length / 4];
+            long bufferSize = buffer.Length;
+
+            FileStream reader = new FileStream(@"C:\Users\HP\Documents\SoftUni\AdvancedCourse\FilesAndDirectories-Resources\Resources\05. Slice File\sliceMe.txt",
+                FileMode.Open);
+
+            using (reader)
+            {
+                int counter = 1;
+                while (counter < 5)
+                {
+                    reader.Read(buffer, 0, buffer.Length);
+
+                    FileStream write = new FileStream($"Part - {counter}.txt", FileMode.OpenOrCreate, FileAccess.Write);
+
+                    using (write)
+                    {
+                        write.Write(buffer, 0, buffer.Length);
+                    }
+
+                    counter++;
+                }
+                reader.Flush();
+            }
+        }
+    }
+}
+

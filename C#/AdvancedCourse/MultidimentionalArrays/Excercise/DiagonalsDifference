@@ -1,0 +1,50 @@
+namespace DiagonalDifference
+{
+    using System;
+    using System.Linq;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            int matrixSize = int.Parse(Console.ReadLine());
+
+            int[,] squareMatrix = new int[matrixSize, matrixSize];
+
+            for (int i = 0; i < squareMatrix.GetLength(0); i++)
+            {
+                int[] matrixRowInput = Console.ReadLine()
+                    .Split(' ')
+                    .Select(int.Parse)
+                    .ToArray();
+
+                for (int j = 0; j < squareMatrix.GetLength(1); j++)
+                {
+                    squareMatrix[i, j] = matrixRowInput[j];
+                }
+            }
+
+            int pirmaryDiagonalTopIndex = 0;
+            int pirmaryDiagonalLeftIndex = 0;
+
+            int secondaryDiagonalTopIndex = 0;
+            int secondaryDiagonalLeftIndex = squareMatrix.GetLength(1) - 1;
+
+            int primarySum = 0;
+            int secondarySum = 0;
+
+            for (int i = 0; i < matrixSize; i++)
+            {
+                primarySum += squareMatrix[pirmaryDiagonalLeftIndex, pirmaryDiagonalTopIndex];
+                pirmaryDiagonalLeftIndex++;
+                pirmaryDiagonalTopIndex++;
+
+                secondarySum += squareMatrix[secondaryDiagonalLeftIndex, secondaryDiagonalTopIndex];
+                secondaryDiagonalTopIndex++;
+                secondaryDiagonalLeftIndex--;
+            }
+
+            Console.WriteLine(Math.Abs(primarySum - secondarySum));
+        }
+    }
+}

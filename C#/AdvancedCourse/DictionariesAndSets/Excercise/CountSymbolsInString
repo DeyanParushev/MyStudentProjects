@@ -1,0 +1,31 @@
+namespace CountSymbolsInString
+{
+    using System;
+    using System.Collections.Generic;
+
+    public class Program
+    {
+       public static void Main()
+        {
+            string inputString = Console.ReadLine();
+
+            SortedDictionary<char, int> symbolsList = new SortedDictionary<char, int>();
+
+            for (int i = 0; i < inputString.Length; i++)
+            {
+
+                if (!symbolsList.ContainsKey(inputString[i]))
+                {
+                    symbolsList.Add(inputString[i], 0);
+                }
+
+                symbolsList[inputString[i]]++;
+            }
+
+            foreach (KeyValuePair<char, int> symbol in symbolsList)
+            {
+                Console.WriteLine($"{symbol.Key}: {symbol.Value} time/s");
+            }
+        }
+    }
+}

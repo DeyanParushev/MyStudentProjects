@@ -1,0 +1,80 @@
+namespace MaximumAndMinElement
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            int iterations = int.Parse(Console.ReadLine());
+
+            Stack<int> stack = new Stack<int>();
+
+            if (iterations >= 1 && iterations <= 105)
+            {
+                for (int i = 0; i < iterations; i++)
+                {
+                    int[] inputLine = Console.ReadLine()
+                        .Split(' ')
+                        .Select(int.Parse)
+                        .ToArray();
+
+                    int command = inputLine[0];
+
+                    if (command >= 1 && command <= 4)
+                    {
+                        switch (command)
+                        {
+                            case 1:
+
+                                int numberToPush = inputLine[1];
+
+                                if (numberToPush >= 1 && numberToPush <= 109)
+                                {
+                                    stack.Push(numberToPush);
+                                }
+
+                                break;
+
+                            case 2:
+
+                                if (stack.Count > 0)
+                                {
+                                    stack.Pop();
+                                }
+
+                                break;
+
+                            case 3:
+
+                                if (stack.Count > 0)
+                                {
+                                    Console.WriteLine(stack.Max());
+                                }
+
+                                break;
+
+                            case 4:
+
+                                if (stack.Count > 0)
+                                {
+                                    Console.WriteLine(stack.Min());
+                                }
+
+                                break;
+                        }
+                    }
+                }
+
+                while (stack.Count > 1)
+                {
+                    Console.Write($"{stack.Pop()}, ");
+                }
+                Console.WriteLine(stack.Pop());
+            }
+        }
+    }
+}
+

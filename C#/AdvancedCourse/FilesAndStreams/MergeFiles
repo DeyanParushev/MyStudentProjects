@@ -1,0 +1,70 @@
+namespace MergeFiles
+{
+    using System;
+    using System.IO;
+    using System.Collections.Generic;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            StreamReader readTheFirstFile = new StreamReader(@"C:\Users\HP\Documents\SoftUni\AdvancedCourse\FilesAndDirectories-Resources\Resources\04. Merge Files\FileOne.txt");
+            StreamReader readTheSecondFile = new StreamReader(@"C:\Users\HP\Documents\SoftUni\AdvancedCourse\FilesAndDirectories-Resources\Resources\04. Merge Files\FileTwo.txt");
+
+            StreamWriter writer = new StreamWriter(@"C:\Users\HP\Documents\SoftUni\AdvancedCourse\FilesAndDirectories-Resources\Resources\Solutions\4. Merge Files - Solution2.txt");
+
+            Queue<string> firstFile = new Queue<string>(KeepTheFileToStringQueue(readTheFirstFile));
+            Queue<string> secondFile = new Queue<string>(KeepTheFileToStringQueue(readTheSecondFile));
+
+            int counter = 0;
+
+            using (writer)
+            {
+                while (firstFile.Count != 0 || secondFile.Count != 0)
+                {
+                    string line = "";
+
+
+                    if (counter % 2 == 0)
+                    {
+                        if (firstFile.Count != 0)
+                        {
+                            line = firstFile.Dequeue();
+                            writer.WriteLine(line);
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                    else
+                    {
+                        if (secondFile.Count != 0)
+                        {
+                            line = secondFile.Dequeue();
+                            writer.WriteLine(line);
+                        }
+                    }
+
+                    counter++;
+                }
+            }
+        }
+
+        static Queue<string> KeepTheFileToStringQueue(StreamReader textFile)
+        {
+            Queue<string> fileToQueue = new Queue<string>();
+
+            using (textFile)
+            {
+                while (!textFile.EndOfStream)
+                {
+                    string line = textFile.ReadLine();
+                    fileToQueue.Enqueue(line);
+                }
+            }
+
+            return fileToQueue;
+        }
+    }
+}

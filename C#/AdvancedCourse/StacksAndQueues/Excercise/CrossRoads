@@ -1,0 +1,110 @@
+namespace Crossroads
+{
+    using System;
+    using System.Collections.Generic;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            int greenLightTimeWindow = int.Parse(Console.ReadLine());
+            int safetyTimeWindow = int.Parse(Console.ReadLine());
+
+            Queue<string> trafficQueue = new Queue<string>();
+
+            string userCommand = Console.ReadLine();
+            bool thereIsACrash = false;
+
+            string carPassing = "";
+            char hitPart = '.';
+            int charCounter = 0;
+            int carsPassedCounter = 0;
+
+            while (userCommand != "END")
+            {
+                thereIsACrash = false;
+
+                if (userCommand == "green")
+                {
+                    if (trafficQueue.Count > 0)
+                    {
+                        carPassing = trafficQueue.Peek();
+                    }
+
+                    charCounter = 0;
+
+                    while (trafficQueue.Count > 0)
+                    {
+                        charCounter += carPassing.Length;
+
+                        if (charCounter < greenLightTimeWindow)
+                        {
+                            if (trafficQueue.Count > 0)
+                            {
+                                trafficQueue.Dequeue();
+                                carsPassedCounter++;
+
+                                if (trafficQueue.Count > 0)
+                                {
+                                    carPassing = trafficQueue.Peek();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (charCounter <= greenLightTimeWindow + safetyTimeWindow)
+                            {
+                                if (trafficQueue.Count > 0)
+                                {
+                                    trafficQueue.Dequeue();
+
+                                    if (trafficQueue.Count > 0)
+                                    {
+                                        carPassing = trafficQueue.Peek();
+                                    }
+                                    carsPassedCounter++;
+                                }
+                            }
+                            else
+                            {
+                                thereIsACrash = true;
+
+                                int hitPartIndex = charCounter - (greenLightTimeWindow + safetyTimeWindow) - 1;
+                                hitPart = carPassing[carPassing.Length - 1 - hitPartIndex];
+                            }
+                            break;
+                        }
+
+                        if (thereIsACrash)
+                        {
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    trafficQueue.Enqueue(userCommand);
+                }
+
+                if (thereIsACrash)
+                {
+                    break;
+                }
+
+                userCommand = Console.ReadLine();
+
+            }
+
+            if (thereIsACrash)
+            {
+                Console.WriteLine("A crash happened!");
+                Console.WriteLine($"{carPassing} was hit at {hitPart}.");
+            }
+            else
+            {
+                Console.WriteLine("Everyone is safe.");
+                Console.WriteLine($"{carsPassedCounter} total cars passed the crossroads.");
+            }
+        }
+    }
+}

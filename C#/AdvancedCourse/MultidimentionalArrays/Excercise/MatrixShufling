@@ -1,0 +1,116 @@
+namespace MatrixShuffling
+{
+    using System;
+    using System.Linq;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            int[] matrixSizeInput = Console.ReadLine()
+                .Split(' ')
+                .Select(int.Parse)
+                .ToArray();
+
+            int rows = matrixSizeInput[0];
+            int colls = matrixSizeInput[1];
+
+            string[,] matrix = new string[rows, colls];
+
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                string[] matrixRowInput = Console.ReadLine()
+                    .Split(' ')
+                    .ToArray();
+
+                for (int j = 0; j < matrix.GetLength(1); j++)
+                {
+                    matrix[i, j] = matrixRowInput[j];
+                }
+            }
+
+            string commandLine = Console.ReadLine();
+
+            int firstNumberRowIndex = 0;
+            int firstNumberCollIndex = 0;
+
+            int secondNumberRowIndex = 0;
+            int secondNumberCollIndex = 0;
+
+            while (!commandLine.StartsWith("END"))
+            {
+                string[] inputData = commandLine
+                    .Split(' ')
+                    .ToArray();
+
+                string command = inputData[0];
+
+                bool indexesAreCorrect = false;
+
+                if (inputData.Length == 5)
+                {
+                    firstNumberRowIndex = int.Parse(inputData[1]);
+                    firstNumberCollIndex = int.Parse(inputData[2]);
+
+                    secondNumberRowIndex = int.Parse(inputData[3]);
+                    secondNumberCollIndex = int.Parse(inputData[4]);
+
+                    if (firstNumberRowIndex >= 0 && firstNumberRowIndex < rows)
+                    {
+                        if (firstNumberCollIndex >= 0 && firstNumberCollIndex < colls)
+                        {
+                            if (secondNumberRowIndex >= 0 && secondNumberRowIndex < rows)
+                            {
+                                if (secondNumberCollIndex >= 0 && secondNumberCollIndex < colls)
+                                {
+                                    indexesAreCorrect = true;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (!indexesAreCorrect)
+                {
+                    Console.WriteLine("Invalid input!");
+
+                    commandLine = Console.ReadLine();
+
+                    continue;
+                }
+
+                bool commandIsCorrect = command == "swap";
+
+                if (commandIsCorrect)
+                {
+                    string tempString = "";
+
+                    string firstString = matrix[firstNumberRowIndex, firstNumberCollIndex];
+                    string secondString = matrix[secondNumberRowIndex, secondNumberCollIndex];
+
+                    tempString = firstString;
+                    firstString = secondString;
+                    secondString = tempString;
+
+                    matrix[firstNumberRowIndex, firstNumberCollIndex] = firstString;
+                    matrix[secondNumberRowIndex, secondNumberCollIndex] = secondString;
+
+                    for (int i = 0; i < matrix.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < matrix.GetLength(1); j++)
+                        {
+                            Console.Write($"{matrix[i, j]} ");
+                        }
+                        Console.WriteLine();
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input!");
+                }
+
+                commandLine = Console.ReadLine();
+            }
+        }
+    }
+}

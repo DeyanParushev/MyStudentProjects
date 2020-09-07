@@ -1,0 +1,81 @@
+namespace FilteredByAge
+{
+    using System;
+    using System.Collections.Generic;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            int numberOfPeople = int.Parse(Console.ReadLine());
+
+            List<Person> people = new List<Person>();
+
+            for (int i = 0; i < numberOfPeople; i++)
+            {
+                string[] input = Console.ReadLine()
+                    .Split(", ");
+
+                Person newPerson = new Person();
+                newPerson.Age = int.Parse(input[1]);
+                newPerson.Name = input[0];
+
+                people.Add(newPerson);
+            }
+
+            string condition = Console.ReadLine();
+            int age = int.Parse(Console.ReadLine());
+
+            Func<string, int, Person, bool> filter = Filter;
+
+            string format = Console.ReadLine();
+
+            foreach (Person item in people)
+            {
+                if (filter(condition, age, item))
+                {
+                    if (format == "name age")
+                    {
+                        Console.WriteLine($"{item.Name} - {item.Age}");
+                    }
+                    else if (format == "name")
+                    {
+                        Console.WriteLine(item.Name);
+                    }
+                    else
+                    {
+                        Console.WriteLine(item.Age);
+                    }
+                }
+            }
+        }
+
+        static bool Filter(string condtition, int age, Person person)
+        {
+            bool conditionFulfilled = false;
+
+            if (condtition.ToLower() == "older")
+            {
+                if (person.Age >= age)
+                {
+                    conditionFulfilled = true;
+                }
+            }
+            else if (condtition.ToLower() == "younger")
+            {
+                if (person.Age < age)
+                {
+                    conditionFulfilled = true;
+                }
+            }
+
+            return conditionFulfilled;
+        }
+        class Person
+        {
+            public int Age { get; set; }
+
+            public string Name { get; set; }
+        }
+    }
+}

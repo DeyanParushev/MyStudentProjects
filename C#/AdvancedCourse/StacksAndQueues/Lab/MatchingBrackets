@@ -1,0 +1,38 @@
+namespace MatchingBrackets
+{
+    using System;
+    using System.Collections.Generic;
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string input = Console.ReadLine();
+
+            Stack<int> bracketsIndex = new Stack<int>();
+
+            Stack<string> expressions = new Stack<string>();
+
+            for (int i = 0; i < input.Length; i++)
+            {
+                char symbol = input[i];
+
+                if (symbol == '(')
+                {
+                    int index = i;
+                    bracketsIndex.Push(index);
+                }
+                else if (symbol == ')')
+                {
+                    int openingIndex = bracketsIndex.Pop();
+                    int closingIndex = i;
+
+                    string expression = input.Substring(openingIndex, (closingIndex - openingIndex+1));
+
+                    expressions.Push(expression);
+                    Console.WriteLine(expression);
+                }
+            }
+        }
+    }
+}

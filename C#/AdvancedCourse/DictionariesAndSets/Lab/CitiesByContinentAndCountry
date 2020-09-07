@@ -1,0 +1,68 @@
+namespace CitiesByContinentAndCountry
+{
+    using System;
+    using System.Linq;
+    using System.Collections.Generic;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            int inputLines = int.Parse(Console.ReadLine());
+
+            Dictionary<string, Dictionary<string, List<string>>> continents = new Dictionary<string, Dictionary<string, List<string>>>();
+
+            for (int i = 0; i < inputLines; i++)
+            {
+                string[] inputLine = Console.ReadLine()
+                    .Split(' ')
+                    .ToArray();
+
+                string continentName = inputLine[0];
+                string countryName = inputLine[1];
+                string cityName = inputLine[2];
+
+                if (!continents.ContainsKey(continentName))
+                {
+                    continents.Add(continentName, new Dictionary<string, List<string>>());
+
+                    if (!continents[continentName].ContainsKey(countryName))
+                    {
+                        continents[continentName].Add(countryName, new List<string>());
+
+                        if (continents[continentName][countryName].Contains(cityName))
+                        {
+                            continue;
+                        }
+                    }
+
+                    continents[continentName][countryName].Add(cityName);
+                }
+                else
+                {
+                    if (!continents[continentName].ContainsKey(countryName))
+                    {
+                        continents[continentName].Add(countryName, new List<string>());
+
+                        if (continents[continentName][countryName].Contains(cityName))
+                        {
+                            continue;
+                        }
+                    }
+
+                    continents[continentName][countryName].Add(cityName);
+                }
+            }
+
+            foreach (KeyValuePair<string, Dictionary<string, List<string>>> continent in continents)
+            {
+                Console.WriteLine($"{continent.Key}:");
+
+                foreach (KeyValuePair<string, List<string>> country in continent.Value)
+                {
+                    Console.WriteLine($"{country.Key} -> {string.Join(", ", country.Value)}");
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,34 @@
+namespace PrintEvenNumbers
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] inputArr = Console.ReadLine()
+                .Split(' ')
+                .Select(int.Parse)
+                .ToArray();
+
+            Queue<int> queue = new Queue<int>();
+
+            for (int i = 0; i < inputArr.Length; i++)
+            {
+                if (inputArr[i] % 2 == 0)
+                {
+                    queue.Enqueue(inputArr[i]);
+                }
+            }
+
+            while (queue.Count > 1)
+            {
+                Console.Write(queue.Dequeue() + ", ");
+            }
+
+            Console.Write(queue.Dequeue());
+        }
+    }
+}

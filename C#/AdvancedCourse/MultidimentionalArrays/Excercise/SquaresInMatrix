@@ -1,0 +1,62 @@
+namespace SquaresInMatrix
+{
+    using System;
+    using System.Linq;
+
+    public class Program
+    {
+        public static void Main()
+        {
+            int[] matrixSize = Console.ReadLine()
+                .Split(' ')
+                .Select(int.Parse)
+                .ToArray();
+
+            int matrixRows = matrixSize[0];
+            int matrixColls = matrixSize[1];
+
+            char[,] symbolMatrix = new char[matrixRows, matrixColls];
+
+            for (int i = 0; i < symbolMatrix.GetLength(0); i++)
+            {
+                char[] input = Console.ReadLine()
+                    .Where(x => x != ' ')
+                    .ToArray();
+
+
+                for (int j = 0; j < symbolMatrix.GetLength(1); j++)
+                {
+                    symbolMatrix[i, j] = input[j];
+                }
+            }
+
+            int squareCounter = 0;
+
+            int topIndex = 0;
+            int leftIndex = 0;
+
+            while (topIndex < symbolMatrix.GetLength(0) - 1 && leftIndex < symbolMatrix.GetLength(1) - 1)
+            {
+                bool symbolsAreTheSame = 
+                    (symbolMatrix[topIndex, leftIndex] == symbolMatrix[topIndex, leftIndex + 1]) &&
+                    (symbolMatrix[topIndex, leftIndex] == symbolMatrix[topIndex + 1, leftIndex]) &&
+                    (symbolMatrix[topIndex, leftIndex] == symbolMatrix[topIndex + 1, leftIndex + 1]);
+
+                leftIndex++;
+
+                if (leftIndex == symbolMatrix.GetLength(1) - 1)
+                {
+                    topIndex++;
+                    leftIndex = 0;
+                }
+
+                if (symbolsAreTheSame)
+                {
+                    squareCounter++;
+                }
+            }
+
+            Console.WriteLine(squareCounter);
+        }
+    }
+}
