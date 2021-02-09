@@ -1,10 +1,20 @@
-<h1>Gan356 Air SM</h1>
+<h1>{{cube.name}}</h1>
 <img class="cube"
-  src="https://ae01.alicdn.com/kf/HTB1CSddXRxRMKJjy0Fdq6yifFXa6/Gan-356-Air-SM-3x3-Black-Magic-cube-GAN-Air-SM-Magnetic-3x3x3-Speed-cube-gans.jpg">
+  src="{{cube.imageUrl}}">
 <div class="details">
-  <p><span>Description:</span> Magnets in AirSM will not drop, and their positions will be more precise with the
-    Magnets-Snap-On design. With the use of 3mm*2mm magnets, the handfeel will be more stable and more
-    comfortable. P.S. This design is brand new for the AirSM.</p>
-  <p><span>Difficulty level:</span> 3</p>
-  <a class="btn" href="/">Back</a>
+  <p><span>Description:</span> {{cube.description}}</p>
+  <p><span>Difficulty level:</span>{{cube.difficultyLevel}}</p>
+  <a class="btn" href="/cubes/attach/{{cube._id}}">Attach</a>
+  <a class="btn" href="/cubes">Back</a>
+  <a class="btn" href="/cubes/edit/{{cube._id}}">Edit</a>
+  <a class="btn" href="/cubes/delete/{{cube._id}}">Delete</a>
 </div>
+
+{{#each accessories}}
+<div class="cube">
+  <img class="cube"
+    src="{{imageUrl}}">
+  <p class="name">{{name}}</p>
+  <p><span>Description</span>{{description}}</p>
+</div>
+{{/each}}

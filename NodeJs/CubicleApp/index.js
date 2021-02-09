@@ -4,7 +4,6 @@ const app = require('express')();
 const router = require('./router');
 
 require('./config/express')(app);
-require('./config/routes')(app);
 require('./config/mongoose')(app);
 
 app.use(router);

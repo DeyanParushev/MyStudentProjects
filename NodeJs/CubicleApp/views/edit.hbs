@@ -1,12 +1,12 @@
-<h1>Create</h1>
+<h1>Edit</h1>
 <div class="form">
-  <form action='/cubes/create' method="post">
+  <form action='/cubes/edit' method="post">
     <label for="name">Name</label>
-    <input type="text" id="name" name="name">
+    <input type="text" id="name" name="name" value={{cube.name}}>
     <label for="name">Description</label>
-    <textarea id="name" name="description"></textarea>
+    <textarea id="name" name="description">{{cube.description}}</textarea>
     <label for="image">ImageUrl</label>
-    <input type="text" id="image" name="imageUrl">
+    <input type="text" id="image" name="imageUrl" value={{cube.imageUrl}}>
     <label for="difficulty">Difficulty</label>
     <select id="difficulty" name="difficultyLevel">
       <option value="1">1 - Very Easy</option>
@@ -16,6 +16,8 @@
       <option value="5">5 - Expert</option>
       <option value="6">6 - Hardcore</option>
     </select>
-    <input type="submit" value="Create">
+    <label for="_id"></label>
+    <input type="hidden" id="_id" name="_id" value={{cube._id}}>
+    <input type="submit" value="Edit">
   </form>
 </div>
