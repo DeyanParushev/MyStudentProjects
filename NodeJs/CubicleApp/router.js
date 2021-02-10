@@ -6,6 +6,7 @@ const cubesController = require('./controllers/cubesController');
 const accessoriesController = require('./controllers/accessoriesController');
 
 router.use('/', homeController);
+router.use('/users', usersController);
 router.use('/cubes', cubesController);
 router.use('/accessories', accessoriesController);
 
